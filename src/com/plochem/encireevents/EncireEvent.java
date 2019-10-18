@@ -1,5 +1,9 @@
 package com.plochem.encireevents;
 
-public class EncireEvent {
+import org.bukkit.plugin.java.JavaPlugin;
 
+public class EncireEvent extends JavaPlugin{
+	public void onEnable() {
+		
+	}
 }
