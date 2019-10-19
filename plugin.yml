@@ -1,0 +1,7 @@
+main: com.plochem.encireevents.EncireEvent
+name: EncireEvents
+version: 1.0.0
+author: Plochem
+description: Events plugin for Encire Network.
+commands:
+   events:
