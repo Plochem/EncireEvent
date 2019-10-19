@@ -13,6 +13,7 @@ public abstract class Event {
 	private List<UUID> spectators = new ArrayList<>();	
 	private Location specLoc;
 	private boolean started;
+	private int maxPlayers;
 	
 	public List<UUID> getPlayers(){
 		return players;
@@ -34,6 +35,14 @@ public abstract class Event {
 		this.started = started;
 	}
 	
+	public int getMaxPlayers(){
+		return maxPlayers;
+	}
+	
+	public void setMaxPlayers(int maxPlayers){
+		this.maxPlayers = maxPlayers;
+	}
+	
 	public void sendMessage(String msg) {
 		for(UUID id : players) {
 			Bukkit.getPlayer(id).sendMessage(msg);
@@ -51,6 +60,18 @@ public abstract class Event {
 	public void addSpectator(Player p) {
 		spectators.add(p.getUniqueId());
 		p.teleport(specLoc);
+	}
+	
+	public boolean isFull() {
+		if(players.size() >= maxPlayers) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void removePlayer(Player p) {
+		players.remove(p.getUniqueId());
+		spectators.remove(p.getUniqueId());
 	}
 	
 	public abstract void start();
