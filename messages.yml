@@ -1,3 +1,12 @@
 help-message:
 - "&5help Menu"
-- "&fDo this yourself lmao"
+- "&fDo this yourself &5lmao"
+- "add more lines if you want"
+no-event-message: "&cThere is no event right now."
+player-not-in-event-message: "&cYou're not in an event"
+joined-event-message: "You joined the event!"
+event-full-message: "This event is full. You can spectate the game instead"
+left-event-message: "You left the event!"
+no-permission-message: "&cYou don't have permission to use this command"
+reloaded-message: "&aConfig reloaded!"
+spectating-event-message: "&ayou are now spectating the event"
