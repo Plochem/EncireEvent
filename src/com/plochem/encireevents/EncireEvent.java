@@ -3,17 +3,20 @@ package com.plochem.encireevents;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EncireEvent extends JavaPlugin{	
 	private Event event = null;
 	private File messageFile = new File(this.getDataFolder(), "messages.yml");
-	private YamlConfiguration messages = YamlConfiguration.loadConfiguration(messageFile);
+	private YamlConfiguration messages;
 	
 	public void onEnable() {
 		getLogger().info("____________________________");
@@ -21,11 +24,21 @@ public class EncireEvent extends JavaPlugin{
 		getLogger().info("https://github.com/Plochem");
 		getLogger().info("____________________________");
 		registerThings();
-		save(messageFile, messages);
+		createFiles();
 	}
 	
 	public void registerThings() {
-		
+		PluginManager pm = Bukkit.getPluginManager();
+		pm.addPermission(new Permission("events.reload"));
+		pm.addPermission(new Permission("events.host"));
+	}
+	
+	public void createFiles() {
+		if(!messageFile.exists()) {
+			messageFile.getParentFile().mkdirs();
+			saveResource("messages.yml", false);
+		}
+		messages = YamlConfiguration.loadConfiguration(messageFile);
 	}
 	
 	public void save(File f, YamlConfiguration c) {
@@ -44,30 +57,47 @@ public class EncireEvent extends JavaPlugin{
 				if(args.length == 0) {
 					showHelp(p);
 				}
-				if(args.length == 1) {
+				else if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
 						showHelp(p);
+					} else if(args[0].equalsIgnoreCase("reload")) {
+						if(p.hasPermission("events.reload")) {
+							reload();
+							sendMsg(p, messages.getString("reloaded-message"));
+						} else {
+							sendMsg(p, messages.getString("no-permission-message"));
+						}
+					} else if(args[0].equalsIgnoreCase("host")) {
+						if(p.hasPermission("events.host")) {
+							openHostingMenu(p);
+						} else {
+							sendMsg(p, messages.getString("no-permission-message"));
+						}
 					} else if(args[0].equalsIgnoreCase("join")) {
 						if(event == null) {
-							p.sendMessage(ChatColor.translateAlternateColorCodes('&',messages.getString("no-event-message")));
+							sendMsg(p, messages.getString("no-event-message"));
 						} else {
 							if(event.isFull()) {
-
-								p.sendMessage(ChatColor.translateAlternateColorCodes('&',messages.getString("event-full-message")));
+								sendMsg(p,messages.getString("event-full-message"));
 							} else {
-								p.sendMessage(ChatColor.translateAlternateColorCodes('&',messages.getString("joined-event-message")));
+								sendMsg(p, messages.getString("joined-event-message"));
 								event.addPlayer(p);
 							}
 						}
 					} else if(args[0].equalsIgnoreCase("leave")) {
 						if(event == null || !event.getPlayers().contains(p.getUniqueId()) || !event.getSpectators().contains(p.getUniqueId())) {
-							p.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("player-not-in-event-message")));
+							sendMsg(p, messages.getString("player-not-in-event-message"));
 						} else {
-							p.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("left-event-message")));
+							sendMsg(p, messages.getString("left-event-message"));
 							event.removePlayer(p);
 						}
 					} else if(args[0].equalsIgnoreCase("spectate")) {
-						
+						if(event == null) {
+							sendMsg(p, messages.getString("no-event-message"));
+						} else {
+							event.addSpectator(p);
+							sendMsg(p, messages.getString("spectating-event-message"));
+						}
 					}
 				}
 			} else {
@@ -77,9 +107,14 @@ public class EncireEvent extends JavaPlugin{
 		return false;
 	}
 	
+	private void openHostingMenu(Player p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void showHelp(Player p) {
 		for(String s : messages.getStringList("help-message")) {
-			p.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
+			sendMsg(p, s);
 		}
 	}
 	
@@ -88,6 +123,10 @@ public class EncireEvent extends JavaPlugin{
 	}
 	
 	public void reload() {
-		
+		messages = YamlConfiguration.loadConfiguration(messageFile);
+	}
+	
+	public void sendMsg(Player p, String s) {
+		p.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
 	}
 }
