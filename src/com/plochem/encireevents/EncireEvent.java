@@ -1,6 +1,7 @@
 package com.plochem.encireevents;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,13 +16,24 @@ public class EncireEvent extends JavaPlugin{
 	private YamlConfiguration messages = YamlConfiguration.loadConfiguration(messageFile);
 	
 	public void onEnable() {
+		getLogger().info("____________________________");
 		getLogger().info("Plugin developed by Plochem");
 		getLogger().info("https://github.com/Plochem");
+		getLogger().info("____________________________");
 		registerThings();
+		save(messageFile, messages);
 	}
 	
 	public void registerThings() {
 		
+	}
+	
+	public void save(File f, YamlConfiguration c) {
+		try {
+			c.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -35,10 +47,31 @@ public class EncireEvent extends JavaPlugin{
 				if(args.length == 1) {
 					if(args[0].equalsIgnoreCase("help")) {
 						showHelp(p);
+					} else if(args[0].equalsIgnoreCase("join")) {
+						if(event == null) {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',messages.getString("no-event-message")));
+						} else {
+							if(event.isFull()) {
+
+								p.sendMessage(ChatColor.translateAlternateColorCodes('&',messages.getString("event-full-message")));
+							} else {
+								p.sendMessage(ChatColor.translateAlternateColorCodes('&',messages.getString("joined-event-message")));
+								event.addPlayer(p);
+							}
+						}
+					} else if(args[0].equalsIgnoreCase("leave")) {
+						if(event == null || !event.getPlayers().contains(p.getUniqueId()) || !event.getSpectators().contains(p.getUniqueId())) {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("player-not-in-event-message")));
+						} else {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&', messages.getString("left-event-message")));
+							event.removePlayer(p);
+						}
+					} else if(args[0].equalsIgnoreCase("spectate")) {
+						
 					}
 				}
 			} else {
-				getLogger().info("[Events] Only players can use this command");
+				getLogger().info("Only players can use this command");
 			}
 		}
 		return false;
@@ -52,5 +85,9 @@ public class EncireEvent extends JavaPlugin{
 	
 	public Event getEvent() {
 		return event;
+	}
+	
+	public void reload() {
+		
 	}
 }
