@@ -1,0 +1,27 @@
+# USE THE § SYMBOL IF YOU WANT COLOR
+# ONLY CHANGE VALUES
+# SLOT NUMBER STARTS FROM 0
+menu-size: 9 
+menu-items:
+  ffa:
+    slot: 0
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      type: DIAMOND_SWORD
+      meta:
+       ==: ItemMeta
+       meta-type: UNSPECIFIC
+       display-name: §aFFA
+       lore:
+       - '§eClick to create a FFA event'
+  waterdrop:
+    slot: 0
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      type: WATER_BUCKET
+      meta:
+       ==: ItemMeta
+       meta-type: UNSPECIFIC
+       display-name: §aWaterdrop
+       lore:
+       - '§eClick to create a Waterdrop event'
