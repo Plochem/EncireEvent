@@ -7,8 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +19,8 @@ public class EncireEvent extends JavaPlugin{
 	private Event event = null;
 	private File messageFile = new File(this.getDataFolder(), "messages.yml");
 	private YamlConfiguration messages;
+	private File hostMenuFile = new File(this.getDataFolder(), "host-menu.yml");
+	private YamlConfiguration hostMenu;
 	
 	public void onEnable() {
 		getLogger().info("____________________________");
@@ -39,6 +43,11 @@ public class EncireEvent extends JavaPlugin{
 			saveResource("messages.yml", false);
 		}
 		messages = YamlConfiguration.loadConfiguration(messageFile);
+		if(!hostMenuFile.exists()) {
+			hostMenuFile.getParentFile().mkdirs();
+			saveResource("host-menu", false);
+		}
+		hostMenu = YamlConfiguration.loadConfiguration(hostMenuFile);
 	}
 	
 	public void save(File f, YamlConfiguration c) {
@@ -108,8 +117,13 @@ public class EncireEvent extends JavaPlugin{
 	}
 	
 	private void openHostingMenu(Player p) {
-		// TODO Auto-generated method stub
-		
+		int size = hostMenu.getInt("menu-size");
+		Inventory inv = Bukkit.createInventory(p, size, "Choose an event to host");
+		ConfigurationSection itemConfig = hostMenu.getConfigurationSection("menu-items");
+		for(String key : itemConfig.getKeys(false)) {
+			inv.setItem(itemConfig.getInt(key+".slot"),hostMenu.getItemStack(key+".item"));
+		}		
+		p.openInventory(inv);
 	}
 
 	private void showHelp(Player p) {
@@ -124,6 +138,7 @@ public class EncireEvent extends JavaPlugin{
 	
 	public void reload() {
 		messages = YamlConfiguration.loadConfiguration(messageFile);
+		hostMenu = YamlConfiguration.loadConfiguration(hostMenuFile);
 	}
 	
 	public void sendMsg(Player p, String s) {
