@@ -1,6 +1,7 @@
-# USE THE § SYMBOL IF YOU WANT COLOR
+# USE \xa7 to signify § IF YOU WANT COLOR. EXAMPLE: \xa7b = §b and \xa7a = §a
 # ONLY CHANGE VALUES
 # SLOT NUMBER STARTS FROM 0
+menu-name: "Choose an event to host..."
 menu-size: 9 
 menu-items:
   ffa:
@@ -11,17 +12,51 @@ menu-items:
       meta:
        ==: ItemMeta
        meta-type: UNSPECIFIC
-       display-name: §aFFA
+       display-name: "\xa7aFFA"
        lore:
-       - '§eClick to create a FFA event'
+       - "\xa7eClick to create a FFA event"
   waterdrop:
-    slot: 0
+    slot: 1
     item:
       ==: org.bukkit.inventory.ItemStack
       type: WATER_BUCKET
       meta:
        ==: ItemMeta
        meta-type: UNSPECIFIC
-       display-name: §aWaterdrop
+       display-name: "\xa7aWaterdrop"
        lore:
-       - '§eClick to create a Waterdrop event'
+       - "\xa7eClick to create a Waterdrop event"
+  sumo:
+    slot: 2
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      type: STICK
+      meta:
+       ==: ItemMeta
+       meta-type: UNSPECIFIC
+       display-name: "\xa7aSUMO"
+       lore:
+       - "\xa7eClick to create a Sumo event"
+  temperature:
+    slot: 3
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      type: LAVA_BUCKET
+      meta:
+       ==: ItemMeta
+       meta-type: UNSPECIFIC
+       display-name: "\xa7aTemeprature"
+       lore:
+       - "\xa7eClick to create a Temperature event"
+  islandclash:
+    slot: 4
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      type: IRON_SWORD
+      meta:
+       ==: ItemMeta
+       meta-type: UNSPECIFIC
+       display-name: "\xa7aIsland Clash"
+       lore:
+       - "\xa7eClick to create a Island Clash event"
+
