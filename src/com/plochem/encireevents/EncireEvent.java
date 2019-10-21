@@ -45,7 +45,7 @@ public class EncireEvent extends JavaPlugin{
 		messages = YamlConfiguration.loadConfiguration(messageFile);
 		if(!hostMenuFile.exists()) {
 			hostMenuFile.getParentFile().mkdirs();
-			saveResource("host-menu", false);
+			saveResource("host-menu.yml", false);
 		}
 		hostMenu = YamlConfiguration.loadConfiguration(hostMenuFile);
 	}
@@ -118,10 +118,11 @@ public class EncireEvent extends JavaPlugin{
 	
 	private void openHostingMenu(Player p) {
 		int size = hostMenu.getInt("menu-size");
-		Inventory inv = Bukkit.createInventory(p, size, "Choose an event to host");
+		String name = hostMenu.getString("menu-name");
+		Inventory inv = Bukkit.createInventory(p, size, name);
 		ConfigurationSection itemConfig = hostMenu.getConfigurationSection("menu-items");
-		for(String key : itemConfig.getKeys(false)) {
-			inv.setItem(itemConfig.getInt(key+".slot"),hostMenu.getItemStack(key+".item"));
+		for(String key : itemConfig.getKeys(false)) {	
+			inv.setItem(itemConfig.getInt(key+".slot"),itemConfig.getItemStack(key+".item"));
 		}		
 		p.openInventory(inv);
 	}
