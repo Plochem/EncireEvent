@@ -14,6 +14,7 @@ public abstract class Event {
 	private Location specLoc;
 	private boolean started;
 	private int maxPlayers;
+	private String name;
 	
 	public List<UUID> getPlayers(){
 		return players;
@@ -41,6 +42,10 @@ public abstract class Event {
 	
 	public void setMaxPlayers(int maxPlayers){
 		this.maxPlayers = maxPlayers;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public void sendMessage(String msg) {
