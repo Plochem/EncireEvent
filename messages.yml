@@ -10,3 +10,8 @@ left-event-message: "You left the event!"
 no-permission-message: "&cYou don't have permission to use this command"
 reloaded-message: "&aAll configs reloaded!"
 spectating-event-message: "&ayou are now spectating the event"
+event-already-exists: "&aThere is already an ongoing event"
+# %event% = the name of the event
+event-created: "&aYou have created the %event% Event!"
+#broadcasts to everyone on the server that the event has been created
+event-notify-all: "&aThe %event% Event has been created. Do /event join to join!"
