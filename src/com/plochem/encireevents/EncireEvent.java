@@ -145,13 +145,17 @@ public class EncireEvent extends JavaPlugin{
 		return hostMenu;
 	}
 	
+	public YamlConfiguration getMessageonfig() {
+		return messages;
+	}
+	
 	public void reload() {
 		messages = YamlConfiguration.loadConfiguration(messageFile);
 		hostMenu = YamlConfiguration.loadConfiguration(hostMenuFile);
 	}
 	
 	public void sendMsg(Player p, String s) {
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
+		p.sendMessage(ChatColor.translateAlternateColorCodes('&', s).replaceAll("%event%", event.getName()));
 	}
 	
 	
