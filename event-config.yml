@@ -1,0 +1,10 @@
+player-limit-ffa: 50
+player-limit-waterdrop: 50
+player-limit-sumo1v1: 50
+player-limit-sumo2v2: 50
+player-limit-sumo4v4: 80
+player-limit-islandclash: 24
+player-limit-temperature: 50
+# This is the number of seconds before it attempts to start the event.
+# If event can't be started, the event will end
+time: 60
