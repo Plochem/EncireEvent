@@ -57,10 +57,10 @@ public abstract class Event {
 	
 	public void sendMessage(String msg) {
 		for(UUID id : players) {
-			Bukkit.getPlayer(id).sendMessage(msg);
+			Bukkit.getPlayer(id).sendMessage(EncireEvent.plugin.msgFormat(msg));
 		}
 		for(UUID id : spectators) {
-			Bukkit.getPlayer(id).sendMessage(msg);
+			Bukkit.getPlayer(id).sendMessage(EncireEvent.plugin.msgFormat(msg));
 		}
 	}
 	
