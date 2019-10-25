@@ -4,9 +4,9 @@ import org.bukkit.Location;
 
 import com.plochem.encireevents.Event;
 
-public class FFAEvent extends Event{
+public class IslandClashEvent extends Event{
 
-	public FFAEvent(String name, int maxPlayers, Location specLoc) {
+	public IslandClashEvent(String name, int maxPlayers, Location specLoc) {
 		super(name, maxPlayers, specLoc);
 	}
 
@@ -19,7 +19,7 @@ public class FFAEvent extends Event{
 	@Override
 	public void end() {
 		// TODO Auto-generated method stub
+		
 	}
-	
 
 }

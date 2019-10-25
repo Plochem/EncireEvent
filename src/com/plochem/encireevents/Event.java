@@ -16,6 +16,13 @@ public abstract class Event {
 	private int maxPlayers;
 	private String name;
 	
+	
+	public Event(String name, int maxPlayers, Location specLoc) {
+		this.name = name;
+		this.maxPlayers = maxPlayers;
+		this.specLoc = specLoc;
+	}
+	
 	public List<UUID> getPlayers(){
 		return players;
 	}
