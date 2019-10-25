@@ -79,40 +79,40 @@ public class EncireEvent extends JavaPlugin{
 					} else if(args[0].equalsIgnoreCase("reload")) {
 						if(p.hasPermission("events.reload")) {
 							reload();
-							sendMsg(p, messages.getString("reloaded-message"));
+							p.sendMessage(msgFormat(messages.getString("reloaded-message")));
 						} else {
-							sendMsg(p, messages.getString("no-permission-message"));
+							p.sendMessage(msgFormat(messages.getString("no-permission-message")));
 						}
 					} else if(args[0].equalsIgnoreCase("host")) {
 						if(p.hasPermission("events.host")) {
 							openHostingMenu(p);
 						} else {
-							sendMsg(p, messages.getString("no-permission-message"));
+							p.sendMessage(msgFormat(messages.getString("no-permission-message")));
 						}
 					} else if(args[0].equalsIgnoreCase("join")) {
 						if(event == null) {
-							sendMsg(p, messages.getString("no-event-message"));
+							p.sendMessage(msgFormat(messages.getString("no-event-message")));
 						} else {
 							if(event.isFull()) {
-								sendMsg(p,messages.getString("event-full-message"));
+								p.sendMessage(msgFormat(messages.getString("event-full-message")));
 							} else {
-								sendMsg(p, messages.getString("joined-event-message"));
+								p.sendMessage(msgFormat(messages.getString("joined-event-message")));
 								event.addPlayer(p);
 							}
 						}
 					} else if(args[0].equalsIgnoreCase("leave")) {
 						if(event == null || !event.getPlayers().contains(p.getUniqueId()) || !event.getSpectators().contains(p.getUniqueId())) {
-							sendMsg(p, messages.getString("player-not-in-event-message"));
+							p.sendMessage(msgFormat(messages.getString("player-not-in-event-message")));
 						} else {
-							sendMsg(p, messages.getString("left-event-message"));
+							p.sendMessage(msgFormat(messages.getString("left-event-message")));
 							event.removePlayer(p);
 						}
 					} else if(args[0].equalsIgnoreCase("spectate")) {
 						if(event == null) {
-							sendMsg(p, messages.getString("no-event-message"));
+							p.sendMessage(msgFormat(messages.getString("no-event-message")));
 						} else {
 							event.addSpectator(p);
-							sendMsg(p, messages.getString("spectating-event-message"));
+							p.sendMessage(msgFormat(messages.getString("spectating-event-message")));
 						}
 					}
 				}
@@ -136,7 +136,7 @@ public class EncireEvent extends JavaPlugin{
 
 	private void showHelp(Player p) {
 		for(String s : messages.getStringList("help-message")) {
-			sendMsg(p, s);
+			p.sendMessage(msgFormat(s));
 		}
 	}
 	
@@ -167,8 +167,8 @@ public class EncireEvent extends JavaPlugin{
 		eventConfig = YamlConfiguration.loadConfiguration(eventFile);
 	}
 	
-	public void sendMsg(Player p, String s) {
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', s).replaceAll("%event%", event.getName()));
+	public String msgFormat(String s) {
+		return ChatColor.translateAlternateColorCodes('&', s).replaceAll("%event%", event.getName());
 	}
 	
 	

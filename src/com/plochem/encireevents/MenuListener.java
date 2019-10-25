@@ -27,10 +27,10 @@ public class MenuListener implements Listener{
 				ConfigurationSection items = eventPlugin.getMenuConfig().getConfigurationSection("menu-items");
 				ItemStack i = e.getCurrentItem();
 				if(eventPlugin.getEvent() != null) {
-					eventPlugin.sendMsg(p, eventPlugin.getMessageConfig().getString("event-already-exists"));
+					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-already-exists")));
 				} else {
 					if(items.getItemStack("ffa.item").equals(i)) {
-						eventPlugin.setEvent(new FFAEvent());
+						eventPlugin.setEvent(new FFAEvent("FFA", 0, null));
 					} else if(items.getItemStack("waterdrop.item").equals(i)) {
 
 					} else if(items.getItemStack("sumo.item").equals(i)) {
@@ -40,7 +40,7 @@ public class MenuListener implements Listener{
 					} else if(items.getItemStack("islandclash.item").equals(i)) {
 
 					}
-					eventPlugin.sendMsg(p, eventPlugin.getMessageConfig().getString("event-created"));
+					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-created")));
 				}
 
 			}
