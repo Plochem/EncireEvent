@@ -8,3 +8,10 @@ player-limit-temperature: 50
 # This is the number of seconds before it attempts to start the event.
 # If event can't be started, the event will end
 time: 60
+
+spectator-spawn:
+  ffa: null
+  waterdrop: null
+  sumo: null
+  islandclash: null
+  temperature: null
