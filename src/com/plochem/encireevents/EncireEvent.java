@@ -21,6 +21,8 @@ public class EncireEvent extends JavaPlugin{
 	private YamlConfiguration messages;
 	private File hostMenuFile = new File(this.getDataFolder(), "host-menu.yml");
 	private YamlConfiguration hostMenu;
+	private File eventFile = new File(this.getDataFolder(), "event-config.yml");
+	private YamlConfiguration eventConfig;
 	
 	public void onEnable() {
 		getLogger().info("____________________________");
@@ -48,6 +50,11 @@ public class EncireEvent extends JavaPlugin{
 			saveResource("host-menu.yml", false);
 		}
 		hostMenu = YamlConfiguration.loadConfiguration(hostMenuFile);
+		if(!eventFile.exists()) {
+			eventFile.getParentFile().mkdirs();
+			saveResource("event-config.yml", false);
+		}
+		eventConfig = YamlConfiguration.loadConfiguration(eventFile);
 	}
 	
 	public void save(File f, YamlConfiguration c) {
@@ -145,13 +152,19 @@ public class EncireEvent extends JavaPlugin{
 		return hostMenu;
 	}
 	
-	public YamlConfiguration getMessageonfig() {
+	public YamlConfiguration getMessageConfig() {
 		return messages;
+	}	
+	
+	public YamlConfiguration getEventConfig() {
+		return eventConfig;
 	}
+	
 	
 	public void reload() {
 		messages = YamlConfiguration.loadConfiguration(messageFile);
 		hostMenu = YamlConfiguration.loadConfiguration(hostMenuFile);
+		eventConfig = YamlConfiguration.loadConfiguration(eventFile);
 	}
 	
 	public void sendMsg(Player p, String s) {
