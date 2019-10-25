@@ -16,6 +16,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EncireEvent extends JavaPlugin{	
+	public static EncireEvent plugin;
 	private Event event = null;
 	private File messageFile = new File(this.getDataFolder(), "messages.yml");
 	private YamlConfiguration messages;
@@ -25,6 +26,7 @@ public class EncireEvent extends JavaPlugin{
 	private YamlConfiguration eventConfig;
 	
 	public void onEnable() {
+		plugin = this;
 		getLogger().info("____________________________");
 		getLogger().info("Plugin developed by Plochem");
 		getLogger().info("https://github.com/Plochem");
