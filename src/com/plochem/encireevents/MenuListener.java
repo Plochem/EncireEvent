@@ -1,5 +1,7 @@
 package com.plochem.encireevents;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,8 +31,9 @@ public class MenuListener implements Listener{
 				if(eventPlugin.getEvent() != null) {
 					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-already-exists")));
 				} else {
+					ConfigurationSection specLocs = eventPlugin.getEventConfig().getConfigurationSection("spectator-spawn");
 					if(items.getItemStack("ffa.item").equals(i)) {
-						eventPlugin.setEvent(new FFAEvent("FFA", 0, null));
+						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa")));
 					} else if(items.getItemStack("waterdrop.item").equals(i)) {
 
 					} else if(items.getItemStack("sumo.item").equals(i)) {
@@ -41,6 +44,7 @@ public class MenuListener implements Listener{
 
 					}
 					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-created")));
+					Bukkit.broadcastMessage(eventPlugin.getMessageConfig().getString("event-notify-all"));
 				}
 
 			}
