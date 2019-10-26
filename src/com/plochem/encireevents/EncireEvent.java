@@ -39,6 +39,7 @@ public class EncireEvent extends JavaPlugin{
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.addPermission(new Permission("events.reload"));
 		pm.addPermission(new Permission("events.host"));
+		pm.addPermission(new Permission("events.setspawn"));
 	}
 	
 	public void createFiles() {
@@ -115,6 +116,20 @@ public class EncireEvent extends JavaPlugin{
 						} else {
 							event.addSpectator(p);
 							p.sendMessage(msgFormat(messages.getString("spectating-event-message")));
+						}
+					}
+				} else if(args.length == 2) {
+					if(args[0].equalsIgnoreCase("setspawn")) {
+						if(p.hasPermission("events.setspawn")) {
+							if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1])) {
+								eventConfig.getConfigurationSection("spectator-spawn").set(args[1], p.getLocation());
+								save(eventFile, eventConfig);
+								p.sendMessage(messages.getString("set-new-spectator-spawn")); 
+							} else {
+								p.sendMessage(messages.getString("no-such-event"));
+							}
+						} else {
+							p.sendMessage(msgFormat(messages.getString("no-permission-message")));	
 						}
 					}
 				}
