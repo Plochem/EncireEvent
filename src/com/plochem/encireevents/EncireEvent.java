@@ -121,8 +121,8 @@ public class EncireEvent extends JavaPlugin{
 				} else if(args.length == 2) {
 					if(args[0].equalsIgnoreCase("setspawn")) {
 						if(p.hasPermission("events.setspawn")) {
-							if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1])) {
-								eventConfig.getConfigurationSection("spectator-spawn").set(args[1], p.getLocation());
+							if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1].toLowerCase())) {
+								eventConfig.getConfigurationSection("spectator-spawn").set(args[1].toLowerCase(), p.getLocation());
 								save(eventFile, eventConfig);
 								p.sendMessage(messages.getString("set-new-spectator-spawn")); 
 							} else {
