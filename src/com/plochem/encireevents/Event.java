@@ -86,6 +86,17 @@ public abstract class Event {
 		spectators.remove(p.getUniqueId());
 	}
 	
+	public void startCountdown() {
+		Bukkit.getServer().getScheduler().runTaskLater(EncireEvent.plugin, new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		}, EncireEvent.plugin.getEventConfig().getLong("time"));
+	}
+	
 	public abstract void start();
 	public abstract void end();
 	
