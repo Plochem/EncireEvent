@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class Event {
 	private List<UUID> players = new ArrayList<>();	
@@ -87,14 +88,19 @@ public abstract class Event {
 	}
 	
 	public void startCountdown() {
-		Bukkit.getServer().getScheduler().runTaskLater(EncireEvent.plugin, new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-			}
-		}, EncireEvent.plugin.getEventConfig().getLong("time"));
+		new BukkitRunnable() {
+			long time = EncireEvent.plugin.getEventConfig().getLong("time");
+		    public void run() {
+		       if(time == 0) {
+		    	   if(players.size() >= 2) {
+		    		   start();
+		    	   } else {
+		    		   end();
+		    	   }
+		       }
+		       time--;
+		    }
+		}.runTaskTimer(EncireEvent.plugin,0,20); // run every second
 	}
 	
 	public abstract void start();
