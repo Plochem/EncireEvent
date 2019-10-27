@@ -1,5 +1,6 @@
 # Variables
-# %event% = the name of the ongoing event. Would throw errors if no event is ongoing. 
+# %event% = the name of the ongoing event. Would throw errors if no event is ongoing. The event is considered ongoing when someone successfully hosts the event
+# %seconds% = # of seconds left in event countdown
 help-message:
 - "&5help Menu"
 - "&fDo this yourself &5lmao"
@@ -17,4 +18,6 @@ event-created: "&aYou have created the %event% Event!"
 #broadcasts to everyone on the server that the event has been created
 event-notify-all: "&aThe %event% Event has been created. Do /event join to join!"
 no-such-event: "&cAn event by this name doesn't exist"
-set-new-spectator-spawn:  "&aYou set a new spectator spawnpoint for "
+set-new-spectator-spawn:  "&aYou set a new spectator spawnpoint"
+countdown-message: "&aThe &e%event% &aEvent starts &e%seconds% &aseconds!"
+event-not-enough-players: "&cThere are not enough players for the event to start!"
