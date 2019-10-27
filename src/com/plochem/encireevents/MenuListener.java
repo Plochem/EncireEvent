@@ -10,6 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.plochem.encireevents.events.FFAEvent;
+import com.plochem.encireevents.events.IslandClashEvent;
 
 
 public class MenuListener implements Listener{
@@ -41,7 +42,7 @@ public class MenuListener implements Listener{
 					} else if(items.getItemStack("temperature.item").equals(i)) {
 
 					} else if(items.getItemStack("islandclash.item").equals(i)) {
-
+						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), (Location)specLocs.get("islandclash")));
 					}
 					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-created")));
 					Bukkit.broadcastMessage(eventPlugin.getMessageConfig().getString("event-notify-all"));
