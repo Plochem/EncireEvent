@@ -12,6 +12,9 @@ time: 60
 #Must follow this format exactly. NO SPACES! USE DOUBLE QUOTES
 broadcast-times: "60,30,15,10,5,4,3,2,1"
 
+# the location where all players will spawn when the FFA event starts
+ffa-startLoc: null
+
 spectator-spawn:
   ffa: null
   waterdrop: null
