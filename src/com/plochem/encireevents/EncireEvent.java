@@ -41,6 +41,8 @@ public class EncireEvent extends JavaPlugin{
 		pm.addPermission(new Permission("events.host"));
 		pm.addPermission(new Permission("events.spectatorspawn"));
 		pm.addPermission(new Permission("events.gamespawn"));
+		
+		pm.registerEvents(new MenuListener(this), this);
 	}
 	
 	public void createFiles() {
