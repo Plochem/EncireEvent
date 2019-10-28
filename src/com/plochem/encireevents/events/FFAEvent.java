@@ -5,14 +5,16 @@ import org.bukkit.Location;
 import com.plochem.encireevents.Event;
 
 public class FFAEvent extends Event{
+	
+	private Location startLoc;
 
-	public FFAEvent(String name, int maxPlayers, Location specLoc) {
+	public FFAEvent(String name, int maxPlayers, Location specLoc, Location startLoc) {
 		super(name, maxPlayers, specLoc);
+		this.startLoc = startLoc;
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -21,5 +23,7 @@ public class FFAEvent extends Event{
 		// TODO Auto-generated method stub
 	}
 	
-
+	public Location getStartLoc() {
+		return startLoc;
+	}
 }

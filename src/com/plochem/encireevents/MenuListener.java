@@ -34,7 +34,7 @@ public class MenuListener implements Listener{
 				} else {
 					ConfigurationSection specLocs = eventPlugin.getEventConfig().getConfigurationSection("spectator-spawn");
 					if(items.getItemStack("ffa.item").equals(i)) {
-						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa")));
+						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa"), (Location)eventPlugin.getEventConfig().get("ffa-startloc")));
 					} else if(items.getItemStack("waterdrop.item").equals(i)) {
 
 					} else if(items.getItemStack("sumo.item").equals(i)) {
