@@ -39,7 +39,8 @@ public class EncireEvent extends JavaPlugin{
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.addPermission(new Permission("events.reload"));
 		pm.addPermission(new Permission("events.host"));
-		pm.addPermission(new Permission("events.setspawn"));
+		pm.addPermission(new Permission("events.spectatorspawn"));
+		pm.addPermission(new Permission("events.gamespawn"));
 	}
 	
 	public void createFiles() {
@@ -119,8 +120,8 @@ public class EncireEvent extends JavaPlugin{
 						}
 					}
 				} else if(args.length == 2) {
-					if(args[0].equalsIgnoreCase("setspawn")) {
-						if(p.hasPermission("events.setspawn")) {
+					if(args[0].equalsIgnoreCase("spectatorspawn")) {
+						if(p.hasPermission("events.spectatorspawn")) {
 							if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1].toLowerCase())) {
 								eventConfig.getConfigurationSection("spectator-spawn").set(args[1].toLowerCase(), p.getLocation());
 								save(eventFile, eventConfig);
