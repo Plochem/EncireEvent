@@ -78,8 +78,7 @@ public class EncireEvent extends JavaPlugin{
 				Player p = (Player)sender;
 				if(args.length == 0) {
 					showHelp(p);
-				}
-				else if(args.length == 1) {
+				} else {
 					if(args[0].equalsIgnoreCase("help")) {
 						showHelp(p);
 					} else if(args[0].equalsIgnoreCase("reload")) {
@@ -120,19 +119,24 @@ public class EncireEvent extends JavaPlugin{
 							event.addSpectator(p);
 							p.sendMessage(msgFormat(messages.getString("spectating-event-message")));
 						}
-					}
-				} else if(args.length == 2) {
-					if(args[0].equalsIgnoreCase("spectatorspawn")) {
+					} else if(args[0].equalsIgnoreCase("spectatorspawn")) {
 						if(p.hasPermission("events.spectatorspawn")) {
-							if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1].toLowerCase())) {
-								eventConfig.getConfigurationSection("spectator-spawn").set(args[1].toLowerCase(), p.getLocation());
-								save(eventFile, eventConfig);
-								p.sendMessage(messages.getString("set-new-spectator-spawn")); 
-							} else {
-								p.sendMessage(messages.getString("no-such-event"));
+							if(args.length == 2) {
+								if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1].toLowerCase())) {
+									eventConfig.getConfigurationSection("spectator-spawn").set(args[1].toLowerCase(), p.getLocation());
+									save(eventFile, eventConfig);
+									p.sendMessage(messages.getString("set-new-spectator-spawn")); 
+								} else {
+									p.sendMessage(messages.getString("no-such-event"));
+									p.sendMessage(msgFormat("&ePossible choices: ffa, temperature, islandclash, sumo, or waterdrop"));
+								}
 							}
 						} else {
 							p.sendMessage(msgFormat(messages.getString("no-permission-message")));	
+						}
+					} else if(args[0].equalsIgnoreCase("gamespawn")) {
+						if(args[1].equalsIgnoreCase("ffa")) {
+							
 						}
 					}
 				}
