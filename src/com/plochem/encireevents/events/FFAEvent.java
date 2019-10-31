@@ -1,7 +1,11 @@
 package com.plochem.encireevents.events;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import com.plochem.encireevents.EncireEvent;
 import com.plochem.encireevents.Event;
 
 public class FFAEvent extends Event{
@@ -15,7 +19,10 @@ public class FFAEvent extends Event{
 
 	@Override
 	public void start() {
-		
+		for(UUID id : this.getPlayers()) {
+			Bukkit.getPlayer(id).teleport(startLoc);
+		}
+		this.sendMessage(EncireEvent.plugin.msgFormat(EncireEvent.plugin.getMessageConfig().getString("event-started")));
 	}
 
 	@Override
