@@ -135,8 +135,14 @@ public class EncireEvent extends JavaPlugin{
 							p.sendMessage(msgFormat(messages.getString("no-permission-message")));	
 						}
 					} else if(args[0].equalsIgnoreCase("gamespawn")) {
-						if(args[1].equalsIgnoreCase("ffa")) {
-							
+						if(p.hasPermission("events.gamespawn")) {
+							if(args[1].equalsIgnoreCase("ffa")) {
+								eventConfig.set("ffa-startLoc", p.getLocation());
+								save(eventFile, eventConfig);
+								p.sendMessage(msgFormat(messages.getString("set-new-gamespawn")));
+							}
+						} else {
+							p.sendMessage(msgFormat(messages.getString("no-permission-message")));	
 						}
 					}
 				}
