@@ -34,7 +34,7 @@ public class MenuListener implements Listener{
 				} else {
 					ConfigurationSection specLocs = eventPlugin.getEventConfig().getConfigurationSection("spectator-spawn");
 					if(items.getItemStack("ffa.item").equals(i)) {
-						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa"), (Location)eventPlugin.getEventConfig().get("ffa-startloc")));
+						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa"), (Location)eventPlugin.getEventConfig().get("ffa-startLoc")));
 					} else if(items.getItemStack("waterdrop.item").equals(i)) {
 
 					} else if(items.getItemStack("sumo.item").equals(i)) {
@@ -43,6 +43,8 @@ public class MenuListener implements Listener{
 
 					} else if(items.getItemStack("islandclash.item").equals(i)) {
 						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), (Location)specLocs.get("islandclash")));
+					} else {
+						return;
 					}
 					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-created")));
 					Bukkit.broadcastMessage(eventPlugin.getMessageConfig().getString("event-notify-all"));
