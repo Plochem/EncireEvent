@@ -9,6 +9,7 @@ help-message:
 no-event-message: "&cThere is no event right now."
 player-not-in-event-message: "&cYou're not in an event"
 joined-event-message: "&aYou joined the event!"
+event-already-started-message: "&cThis event already started. You can spectate the game instead"
 event-full-message: "&cThis event is full. You can spectate the game instead"
 left-event-message: "&eYou left the event!"
 no-permission-message: "&cYou don't have permission to use this command"
