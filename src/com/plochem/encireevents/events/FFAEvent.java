@@ -23,10 +23,12 @@ public class FFAEvent extends Event{
 			Bukkit.getPlayer(id).teleport(startLoc);
 		}
 		this.sendMessage(EncireEvent.plugin.msgFormat(EncireEvent.plugin.getMessageConfig().getString("event-started")));
+		this.setStarted(true);
 	}
 
 	@Override
 	public void end() {
+		this.setStarted(false);
 		// TODO Auto-generated method stub
 	}
 	
