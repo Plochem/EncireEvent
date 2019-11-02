@@ -29,7 +29,7 @@ public class FFAEvent extends Event{
 	@Override
 	public void end() {
 		this.setStarted(false);
-		// TODO Auto-generated method stub
+		
 	}
 	
 	public Location getStartLoc() {
