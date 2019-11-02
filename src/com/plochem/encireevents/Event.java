@@ -111,6 +111,20 @@ public abstract class Event {
 			}
 		}.runTaskTimer(EncireEvent.plugin,0,20); // run every second
 	}
+	
+	public boolean isPlayer(UUID uuid) {
+		if(players.contains(uuid)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isSpectator(UUID uuid) {
+		if(spectators.contains(uuid)) {
+			return true;
+		}
+		return false;
+	}
 
 	public abstract void start();
 	public abstract void end();
