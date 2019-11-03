@@ -134,9 +134,22 @@ public abstract class Event {
 		spectators.add(id);
 		Bukkit.getPlayer(id).teleport(this.getSpecLocation());
 	}
+	
+	public void end() {
+		EncireEvent plugin = EncireEvent.plugin;
+		this.setStarted(false);
+		this.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-end-notify-all")));
+		for(UUID id : players) {
+			
+		}
+		for(UUID id : spectators) {
+			
+		}
+		plugin.setEvent(null);
+		
+	}
 
 	public abstract void start();
-	public abstract void end();
 	public abstract boolean lastStanding();
 
 }
