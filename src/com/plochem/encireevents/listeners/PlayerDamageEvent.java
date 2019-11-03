@@ -18,7 +18,7 @@ public class PlayerDamageEvent implements Listener{
 		if(e.getEntity() instanceof Player && e.getDamager() instanceof Player) { //player dmg player
 			Event event = plugin.getEvent();
 			if(event==null) return;
-			if(event.isSpectator(e.getEntity().getUniqueId()) && event.isSpectator(e.getDamager().getUniqueId())) { // if both spectator -> no dmg
+			if(event.isSpectator(e.getEntity().getUniqueId()) || event.isSpectator(e.getDamager().getUniqueId())) { // if both spectator -> no dmg
 				e.setCancelled(true);
 			} else if(event.isPlayer(e.getEntity().getUniqueId()) && event.isPlayer(e.getDamager().getUniqueId())) { // if both player in event
 				if(!event.hasStarted()) {
