@@ -45,4 +45,12 @@ public class FFAEvent extends Event{
 	public Location getStartLoc() {
 		return startLoc;
 	}
+
+	@Override
+	public boolean lastStanding() {
+		if(this.getPlayers().size() == 1) {
+			return true;
+		}
+		return false;
+	}
 }

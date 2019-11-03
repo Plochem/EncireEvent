@@ -21,5 +21,13 @@ public class IslandClashEvent extends Event{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public boolean lastStanding() {
+		if(this.getPlayers().size() == 1) {
+			return true;
+		}
+		return false;
+	}
 
 }
