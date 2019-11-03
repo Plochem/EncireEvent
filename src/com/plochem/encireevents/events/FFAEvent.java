@@ -35,12 +35,6 @@ public class FFAEvent extends Event{
 		}
 		
 	}
-
-	@Override
-	public void end() {
-		this.setStarted(false);
-		
-	}
 	
 	public Location getStartLoc() {
 		return startLoc;

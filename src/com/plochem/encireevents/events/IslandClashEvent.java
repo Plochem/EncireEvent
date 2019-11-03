@@ -15,12 +15,6 @@ public class IslandClashEvent extends Event{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void end() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public boolean lastStanding() {
