@@ -128,6 +128,11 @@ public abstract class Event {
 		}
 		return false;
 	}
+	
+	public void playerToSpecator(UUID id) {
+		players.remove(id);
+		spectators.add(id);
+	}
 
 	public abstract void start();
 	public abstract void end();
