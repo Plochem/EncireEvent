@@ -22,8 +22,6 @@ public class FFAEvent extends Event{
 		for(UUID id : this.getPlayers()) {
 			Bukkit.getPlayer(id).teleport(startLoc);
 		}
-		this.sendMessage(EncireEvent.plugin.msgFormat(EncireEvent.plugin.getMessageConfig().getString("event-started")));
-		this.setStarted(true);
 	}
 
 	@Override
