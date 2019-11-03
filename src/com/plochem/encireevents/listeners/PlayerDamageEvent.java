@@ -33,9 +33,11 @@ public class PlayerDamageEvent implements Listener{
 		Event event = plugin.getEvent();
 		if(event==null) return;
 		if(event.isPlayer(e.getEntity().getUniqueId())) {
-			e.getEntity().teleport(event.getSpecLocation());
 			event.playerToSpecator(e.getEntity().getUniqueId());
 			event.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", e.getEntity().getName())));
+			if(event.lastStanding()) {
+				event.end();
+			}
 		}
 	}
 
