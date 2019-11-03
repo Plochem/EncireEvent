@@ -7,6 +7,7 @@ help-message:
 - "add more lines if you want"
 - "yeetus deletus your fetus"
 no-event-message: "&cThere is no event right now."
+inventory-not-empty-message: "&cYour inventory has to be full before joining the event!"
 player-not-in-event-message: "&cYou're not in an event"
 joined-event-message: "&aYou joined the event!"
 event-already-started-message: "&cThis event already started. You can spectate the game instead"
@@ -17,7 +18,7 @@ reloaded-message: "&aAll configs reloaded!"
 spectating-event-message: "&ayou are now spectating the event"
 event-already-exists: "&aThere is already an ongoing event"
 event-created: "&aYou have created the %event% Event!"
-#broadcasts to everyone on the server that the event has been created
+#broadcasts the below message to everyone on the server that the event has been created
 event-notify-all: "&aThe %event% Event has been created. Do /event join to join!"
 no-such-event: "&cAn event by this name doesn't exist"
 set-new-spectator-spawn:  "&aYou set a new spectator spawnpoint"
