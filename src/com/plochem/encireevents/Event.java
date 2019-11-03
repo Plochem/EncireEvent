@@ -132,9 +132,11 @@ public abstract class Event {
 	public void playerToSpecator(UUID id) {
 		players.remove(id);
 		spectators.add(id);
+		Bukkit.getPlayer(id).teleport(this.getSpecLocation());
 	}
 
 	public abstract void start();
 	public abstract void end();
+	public abstract boolean lastStanding();
 
 }
