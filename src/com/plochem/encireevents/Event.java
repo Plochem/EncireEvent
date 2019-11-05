@@ -138,12 +138,17 @@ public abstract class Event {
 	public void end() {
 		EncireEvent plugin = EncireEvent.plugin;
 		this.setStarted(false);
-		this.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-end-notify-all")));
+		this.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-end-notify-all"))); // TODO winners (team)
 		for(UUID id : players) {
-			
+			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
+			}
 		}
+
 		for(UUID id : spectators) {
-			
+			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
+			}
 		}
 		plugin.setEvent(null);
 		
