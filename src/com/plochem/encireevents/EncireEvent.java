@@ -102,7 +102,9 @@ public class EncireEvent extends JavaPlugin{
 								p.sendMessage(msgFormat(messages.getString("event-already-started-message")));
 							} else if(event.isFull()) {
 								p.sendMessage(msgFormat(messages.getString("event-full-message")));
-							} else {
+							} else if(p.getInventory().getContents().length != 0){
+								p.sendMessage(msgFormat(messages.getString("inventory-not-empty-message")));						
+							}  else {
 								p.sendMessage(msgFormat(messages.getString("joined-event-message")));
 								event.addPlayer(p);
 							}
