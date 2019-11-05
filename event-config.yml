@@ -11,6 +11,11 @@ time: 60
 #These are the list of times that would be broadcasted till event starts. For example, "60 seconds till the event starts!", "30 seconds till the event starts"
 #Must follow this format exactly. NO SPACES! USE DOUBLE QUOTES
 broadcast-times: "60,30,15,10,5,4,3,2,1"
+# list of commands that will be executed when an event ends
+# NO SLASH
+# %player% = a player in the event. Ex: "spawn %player%"" will send all players from the event to spawn
+event-end-commands:
+- "spawn %player%"
 
 # the location where all players will spawn when the FFA event starts
 ffa-startLoc: null
