@@ -1,2 +1,2 @@
 # EncireEvent
-Requested plugin from Encire Network
+Requested paid plugin from Encire Network
