@@ -16,9 +16,11 @@ broadcast-times: "60,30,15,10,5,4,3,2,1"
 # %player% = a player in the event. Ex: "spawn %player%"" will send all players from the event to spawn
 event-end-commands:
 - "spawn %player%"
+- "anothercommand %player%"
 
 # the location where all players will spawn when the FFA event starts
 ffa-startLoc: null
+islandclash-startLoc: null
 
 spectator-spawn:
   ffa: null
