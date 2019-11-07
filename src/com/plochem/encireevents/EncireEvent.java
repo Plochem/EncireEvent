@@ -146,24 +146,25 @@ public class EncireEvent extends JavaPlugin{
 					} else if(args[0].equalsIgnoreCase("gamespawn")) {
 						if(p.hasPermission("events.gamespawn")) {
 							if(args.length >= 2) {
-								if(args[1].equalsIgnoreCase("ffa")) {
+								if(args[1].equalsIgnoreCase("ffa") || args[1].equalsIgnoreCase("waterdrop") || args[1].equalsIgnoreCase("temperature")) {
 									eventConfig.set("ffa-startLoc", p.getLocation());
 									save(eventFile, eventConfig);
-									p.sendMessage(msgFormat("&cYou set the location of the game spawn for the FFA event to your current position."));	
+									p.sendMessage(msgFormat("&cYou set the location of the game spawn for the " + args[1] + " event to your current position."));	
 								} else if(args[1].equalsIgnoreCase("islandclash") || args[1].equalsIgnoreCase("sumo")) { //TODO
 									if(args.length == 3) { // /events gamespawn islandclash 1
-										if(StringUtils.isNumeric(args[2]) && Integer.parseInt(args[2]) > 0) {
+										if(StringUtils.isNumeric(args[2]) && Integer.parseInt(args[2]) > 0) { // loc idx
 											int idx = Integer.parseInt(args[2]);
-											List<Location> locs = (List<Location>)eventConfig.getList("islandclash-startLoc");
+											List<Location> locs = (List<Location>)eventConfig.getList(args[1] + "-startLoc");
 											if(locs == null) locs = new ArrayList<>();
 											if(locs.size() >= idx) {
 												locs.set(idx-1, p.getLocation());
-												p.sendMessage(msgFormat("&cYou set the location of game spawn #" + idx + " for the Island Clash event to your current position."));		
+												p.sendMessage(msgFormat("&cYou set the location of game spawn #" + idx + " for the " + args[1] + " event to your current position."));		
 											} else {
 												locs.add(p.getLocation());	
 												p.sendMessage(msgFormat("&cYou're trying to set game spawn #" + idx + ", but the previous ones have not been created. So you just set the location of game spawn #" + locs.size() + " for the Island Clash event to your current position."));											 
 											}
-											eventConfig.set("islandclash-startLoc", locs);
+											eventConfig.set(args[1] + "-startLoc", locs);
+											save(eventFile, eventConfig);
 										} else {
 											p.sendMessage(msgFormat("&cUse a positive integer to specify the game spawn."));
 										}
