@@ -102,7 +102,7 @@ public abstract class Event {
 				if(time == 0) {
 					if(players.size() >= 2) {
 						start();
-						sendMessage(EncireEvent.plugin.msgFormat(EncireEvent.plugin.getMessageConfig().getString("event-started")));
+						plugin.getEvent().sendMessage(EncireEvent.plugin.msgFormat(EncireEvent.plugin.getMessageConfig().getString("event-started")));
 						setStarted(true);
 					} else {
 						end();
