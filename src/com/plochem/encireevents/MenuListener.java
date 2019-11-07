@@ -1,5 +1,7 @@
 package com.plochem.encireevents;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -21,6 +23,7 @@ public class MenuListener implements Listener{
 		this.eventPlugin = eventPlugin;
 	}
 
+	@SuppressWarnings("unchecked")
 	@EventHandler
 	public void onInvClick(InventoryClickEvent e) {
 		if(e.getInventory().getName().equalsIgnoreCase(eventPlugin.getMenuConfig().getString("menu-name"))) {
@@ -42,7 +45,7 @@ public class MenuListener implements Listener{
 					} else if(items.getItemStack("temperature.item").equals(i)) {
 
 					} else if(items.getItemStack("islandclash.item").equals(i)) {
-						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), (Location)specLocs.get("islandclash")));
+						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), (Location)specLocs.get("islandclash"), (List<Location>)eventPlugin.getEventConfig().getList("islandclash-startLoc")));
 					} else {
 						return;
 					}
