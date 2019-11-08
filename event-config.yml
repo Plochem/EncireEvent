@@ -18,9 +18,10 @@ event-end-commands:
 - "spawn %player%"
 - "anothercommand %player%"
 
-# the location where all players will spawn when the FFA event starts
+# the location where all players will spawn when the event starts
 ffa-startLoc: null
 islandclash-startLoc: null
+waterdrop-starLoc: null
 
 spectator-spawn:
   ffa: null
