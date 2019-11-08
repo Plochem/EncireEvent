@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.plochem.encireevents.events.FFAEvent;
 import com.plochem.encireevents.events.IslandClashEvent;
+import com.plochem.encireevents.events.WaterdropEvent;
 
 
 public class MenuListener implements Listener{
@@ -39,11 +40,11 @@ public class MenuListener implements Listener{
 					if(items.getItemStack("ffa.item").equals(i)) {
 						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa"), (Location)eventPlugin.getEventConfig().get("ffa-startLoc")));
 					} else if(items.getItemStack("waterdrop.item").equals(i)) {
-
+						eventPlugin.setEvent(new WaterdropEvent("Waterdrop", eventPlugin.getEventConfig().getInt("player-limit-waterdrop"), (Location)specLocs.get("waterdrop"), (Location)eventPlugin.getEventConfig().get("waterdrop-startLoc")));
 					} else if(items.getItemStack("sumo.item").equals(i)) {
 
 					} else if(items.getItemStack("temperature.item").equals(i)) {
-
+						
 					} else if(items.getItemStack("islandclash.item").equals(i)) {
 						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), (Location)specLocs.get("islandclash"), (List<Location>)eventPlugin.getEventConfig().getList("islandclash-startLoc")));
 					} else {
