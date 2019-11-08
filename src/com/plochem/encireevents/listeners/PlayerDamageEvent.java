@@ -48,6 +48,7 @@ public class PlayerDamageEvent implements Listener{
 		if(event==null) return;
 		if(event.isPlayer(e.getPlayer().getUniqueId())) {
 			event.playerToSpecator(e.getPlayer().getUniqueId());
+			e.getPlayer().setMaxHealth(20.0);
 		}
 	}
 
