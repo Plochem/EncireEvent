@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.plochem.encireevents.EncireEvent;
 import com.plochem.encireevents.Event;
@@ -33,11 +34,20 @@ public class PlayerDamageEvent implements Listener{
 		Event event = plugin.getEvent();
 		if(event==null) return;
 		if(event.isPlayer(e.getEntity().getUniqueId())) {
-			event.playerToSpecator(e.getEntity().getUniqueId());
-			event.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", e.getEntity().getName())));
+			Player p = e.getEntity();
+			event.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", p.getName())));
 			if(event.lastStanding()) {
 				event.end();
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onRespawn(PlayerRespawnEvent e) {
+		Event event = plugin.getEvent();
+		if(event==null) return;
+		if(event.isPlayer(e.getPlayer().getUniqueId())) {
+			event.playerToSpecator(e.getPlayer().getUniqueId());
 		}
 	}
 
