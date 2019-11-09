@@ -46,6 +46,10 @@ public class WaterdropEvent extends Event{
 							sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", Bukkit.getPlayer(id).getName())));
 						}
 					}
+					if(lastStanding()) {
+						this.cancel();
+						end();
+					}
 					passed.clear();
 					time = 60;
 				}
