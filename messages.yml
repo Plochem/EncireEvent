@@ -30,3 +30,5 @@ event-started: "&aThe %event% event has stated! Good luck!"
 
 # %player% = the username of the player that has been eliminated
 player-eliminated: "&e%player% has been eliminated from the event!" #message is sent to everyone in the event (players & spectators)
+
+waterdrop-sucess: "&cYou successfully made the water drop!"
