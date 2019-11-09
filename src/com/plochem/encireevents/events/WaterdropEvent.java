@@ -35,11 +35,13 @@ public class WaterdropEvent extends Event{
 			int time = 60;
 			@Override
 			public void run() {
-				if(time == 0) {
+				if(time == 60) {
+					sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("new-waterdrop-round")));
+				} else if(time == 0) {
 					for(UUID id : getPlayers()) {
 						if(passed.contains(id)) {
 							Bukkit.getPlayer(id).teleport(startLoc);
-						} else {
+						} else { // stayed at spawn
 							playerToSpecator(id);
 							sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", Bukkit.getPlayer(id).getName())));
 						}
