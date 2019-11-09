@@ -19,6 +19,8 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.plochem.encireevents.listeners.PlayerMovementEvent;
+
 public class EncireEvent extends JavaPlugin{	
 	public static EncireEvent plugin;
 	private Event event = null;
@@ -47,6 +49,7 @@ public class EncireEvent extends JavaPlugin{
 		pm.addPermission(new Permission("events.gamespawn"));
 
 		pm.registerEvents(new MenuListener(this), this);
+		pm.registerEvents(new PlayerMovementEvent(), this);
 	}
 
 	public void createFiles() {
