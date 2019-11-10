@@ -23,6 +23,15 @@ ffa-startLoc: null
 islandclash-startLoc: null
 waterdrop-starLoc: null
 
+# Corners to determine the water to use to manipulate
+waterdrop-corner1: null
+waterdrop-corner2: null
+
+
+# Corners to determine the wwool to use to manipulate
+temperature-corner1: null
+temperature-corner2: null
+
 spectator-spawn:
   ffa: null
   waterdrop: null
