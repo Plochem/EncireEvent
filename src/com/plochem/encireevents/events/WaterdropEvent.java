@@ -35,6 +35,7 @@ public class WaterdropEvent extends Event{
 			int time = 60;
 			@Override
 			public void run() {
+				if(!hasStarted()) this.cancel(); // cancels runnable when end() is called in another listener
 				if(time == 60) {
 					sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("new-waterdrop-round")));
 				} else if(time == 0) {
