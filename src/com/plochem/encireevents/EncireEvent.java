@@ -47,6 +47,7 @@ public class EncireEvent extends JavaPlugin{
 		pm.addPermission(new Permission("events.host"));
 		pm.addPermission(new Permission("events.spectatorspawn"));
 		pm.addPermission(new Permission("events.gamespawn"));
+		pm.addPermission(new Permission("events.gamecorner"));
 
 		pm.registerEvents(new MenuListener(this), this);
 		pm.registerEvents(new PlayerMovementEvent(), this);
@@ -161,12 +162,12 @@ public class EncireEvent extends JavaPlugin{
 											if(locs == null) locs = new ArrayList<>();
 											if(locs.size() >= idx) {
 												locs.set(idx-1, p.getLocation());
-												p.sendMessage(msgFormat("&cYou set the location of game spawn #" + idx + " for the " + args[1] + " event to your current position."));		
+												p.sendMessage(msgFormat("&aYou set the location of game spawn #" + idx + " for the " + args[1] + " event to your current position."));		
 											} else {
 												locs.add(p.getLocation());	
 												p.sendMessage(msgFormat("&cYou're trying to set game spawn #" + idx + ", but the previous ones have not been created. So you just set the location of game spawn #" + locs.size() + " for the Island Clash event to your current position."));											 
 											}
-											eventConfig.set(args[1] + "-startLoc", locs);
+											eventConfig.set(args[1].toLowerCase() + "-startLoc", locs);
 											save(eventFile, eventConfig);
 										} else {
 											p.sendMessage(msgFormat("&cUse a positive integer to specify the game spawn."));
@@ -177,7 +178,32 @@ public class EncireEvent extends JavaPlugin{
 								} else {
 									p.sendMessage(msgFormat("&ePossible choices: ffa, temperature, islandclash, sumo, or waterdrop"));	
 								}
-								
+
+							} else {
+								p.sendMessage(msgFormat("&cYou need to specify which event you want to modify the game spawns."));
+							}
+						} else {
+							p.sendMessage(msgFormat(messages.getString("no-permission-message")));	
+						}
+					} else if(args[0].equalsIgnoreCase("gamecorner")) {
+						if(p.hasPermission("events.gamecorner")) {
+							if(args.length >= 2) {
+								if(args[1].equalsIgnoreCase("waterdrop") || args[1].equalsIgnoreCase("temperature")) {
+									if(args.length == 3) { // /events gamecorner waterdrop 1
+										if(StringUtils.isNumeric(args[2]) && Integer.parseInt(args[2]) == 1  || Integer.parseInt(args[2]) == 2) { // loc idx
+											int idx = Integer.parseInt(args[2]);
+											eventConfig.set(args[1].toLowerCase() + "-corner" + idx, p.getLocation());
+											p.sendMessage(msgFormat("&aYou set the location of game corner #" + idx + " for the " + args[1] + " event to your current position."));
+											save(eventFile, eventConfig);
+										} else {
+											p.sendMessage(msgFormat("&cUse either 1 or 2 to specify the corner."));
+										}									
+									} else  {
+										p.sendMessage(msgFormat("&cYou need to specify an which corner you want to set."));
+									}
+								} else {
+									p.sendMessage(msgFormat("&ePossible choices: temperature or waterdrop"));	
+								}
 							} else {
 								p.sendMessage(msgFormat("&cYou need to specify which event you want to modify the game spawns."));
 							}
