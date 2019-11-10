@@ -17,10 +17,14 @@ public class WaterdropEvent extends Event{
 	private Location startLoc;
 	private List<UUID> passed = new ArrayList<>();
 	private EncireEvent plugin = EncireEvent.plugin;
+	private Location corner1;
+	private Location corner2;
 	
-	public WaterdropEvent(String name, int maxPlayers, Location specLoc, Location startLoc) {
+	public WaterdropEvent(String name, int maxPlayers, Location specLoc, Location startLoc, Location corner1, Location corner2) {
 		super(name, maxPlayers, specLoc);
 		this.startLoc = startLoc;
+		this.corner1 = corner1;
+		this.corner2 = corner2;
 	}
 
 
