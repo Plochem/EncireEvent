@@ -264,7 +264,9 @@ public class EncireEvent extends JavaPlugin{
 	}
 
 	public String msgFormat(String s) {
-		return ChatColor.translateAlternateColorCodes('&', s).replaceAll("%event%", event.getName());
+		String colored = ChatColor.translateAlternateColorCodes('&', s);
+		if(event != null) colored.replaceAll("%event%", event.getName());
+		return colored;
 	}
 
 
