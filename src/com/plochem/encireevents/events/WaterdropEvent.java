@@ -1,11 +1,13 @@
 package com.plochem.encireevents.events;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -19,12 +21,14 @@ public class WaterdropEvent extends Event{
 	private EncireEvent plugin = EncireEvent.plugin;
 	private Location corner1;
 	private Location corner2;
+	private List<Location> validWaterLocations = new ArrayList<>();
 	
 	public WaterdropEvent(String name, int maxPlayers, Location specLoc, Location startLoc, Location corner1, Location corner2) {
 		super(name, maxPlayers, specLoc);
 		this.startLoc = startLoc;
 		this.corner1 = corner1;
 		this.corner2 = corner2;
+		populateWaterLocations();
 	}
 
 
@@ -42,6 +46,7 @@ public class WaterdropEvent extends Event{
 				if(!hasStarted()) this.cancel(); // cancels runnable when end() is called in another listener
 				if(time == 60) {
 					sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("new-waterdrop-round")));
+					setRandomBlocks();
 				} else if(time == 0) {
 					for(UUID id : getPlayers()) {
 						if(passed.contains(id)) {
@@ -62,6 +67,34 @@ public class WaterdropEvent extends Event{
 				
 			}
 		}.runTaskTimer(EncireEvent.plugin,0,20); // run every second
+	}
+	
+	private void setRandomBlocks() {
+		List<Location> copy = new ArrayList<>(validWaterLocations);
+		Collections.shuffle(copy);
+		//sublist
+		
+	}
+	
+	private void populateWaterLocations() {
+		int smallX = corner1.getBlockX() < corner2.getBlockX() ? corner1.getBlockX() : corner2.getBlockX();
+		int smallY = corner1.getBlockY() < corner2.getBlockY() ? corner1.getBlockY() : corner2.getBlockY();
+		int smallZ = corner1.getBlockZ() < corner2.getBlockZ() ? corner1.getBlockZ() : corner2.getBlockZ();
+		
+		int largeX = corner1.getBlockX() > corner2.getBlockX() ? corner1.getBlockX() : corner2.getBlockX();
+		int largeY = corner1.getBlockY() > corner2.getBlockY() ? corner1.getBlockY() : corner2.getBlockY();
+		int largeZ = corner1.getBlockZ() > corner2.getBlockZ() ? corner1.getBlockZ() : corner2.getBlockZ();
+		
+		for(int x = smallX; x <= largeX; x++) {
+			for(int y = smallY; y <= largeY; y++) {
+				for(int z = smallZ; z <= largeZ; z++) {
+					Material mat = startLoc.getWorld().getBlockAt(x,y,z).getType();
+					if(mat == Material.WATER || mat  == Material.STATIONARY_WATER) {
+						validWaterLocations.add(new Location(startLoc.getWorld(), x, y, z));
+					}
+				}
+			}
+		}
 	}
 
 	@Override
