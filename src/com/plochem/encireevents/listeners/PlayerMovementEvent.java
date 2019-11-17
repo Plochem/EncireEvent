@@ -20,8 +20,10 @@ public class PlayerMovementEvent implements Listener {
 		if(event instanceof WaterdropEvent && event.isPlayer(e.getPlayer().getUniqueId())) {
 			Material curr = e.getPlayer().getLocation().getBlock().getType();
 			if(curr == Material.WATER || curr == Material.STATIONARY_WATER) {
-				((WaterdropEvent)event).addPassedPlayer(e.getPlayer().getUniqueId());
-				e.getPlayer().sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("waterdrop-sucess")));
+				if(!((WaterdropEvent)event).getPassed().contains(e.getPlayer().getUniqueId())) {
+					((WaterdropEvent)event).addPassedPlayer(e.getPlayer().getUniqueId());
+					e.getPlayer().sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("waterdrop-sucess")));
+				}
 			}
 		}
 	}
