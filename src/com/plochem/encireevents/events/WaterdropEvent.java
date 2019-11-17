@@ -3,6 +3,7 @@ package com.plochem.encireevents.events;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -22,6 +23,7 @@ public class WaterdropEvent extends Event{
 	private Location corner1;
 	private Location corner2;
 	private List<Location> validWaterLocations = new ArrayList<>();
+	private double[] percents = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
 	
 	public WaterdropEvent(String name, int maxPlayers, Location specLoc, Location startLoc, Location corner1, Location corner2) {
 		super(name, maxPlayers, specLoc);
@@ -71,8 +73,16 @@ public class WaterdropEvent extends Event{
 	
 	private void setRandomBlocks() {
 		List<Location> copy = new ArrayList<>(validWaterLocations);
+		for(Location loc : copy) {
+			loc.getBlock().setType(Material.WATER);
+		}
 		Collections.shuffle(copy);
-		//sublist
+		Random ran = new Random();
+		double percent = percents[ran.nextInt(percents.length)];
+		int lim = (int) (copy.size() * percent);
+		for(int i = 0; i <= lim; i++) {
+			copy.get(i).getBlock().setType(Material.WATER);
+		}
 		
 	}
 	
@@ -107,6 +117,10 @@ public class WaterdropEvent extends Event{
 	
 	public void addPassedPlayer(UUID id) {
 		passed.add(id);
+	}
+	
+	public List<UUID> getPassed(){
+		return passed;
 	}
 
 }
