@@ -22,13 +22,15 @@ event-end-commands:
 ffa-startLoc: null
 islandclash-startLoc: null
 waterdrop-starLoc: null
+temperature-startLoc: null
+sumo-startLoc: null
 
 # Corners to determine the water to use to manipulate
 waterdrop-corner1: null
 waterdrop-corner2: null
 
 
-# Corners to determine the wwool to use to manipulate
+# Corners to determine the wool to use to manipulate
 temperature-corner1: null
 temperature-corner2: null
 
