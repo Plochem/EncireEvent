@@ -105,54 +105,53 @@ public abstract class Event {
 						plugin.getEvent().sendMessage(EncireEvent.plugin.msgFormat(EncireEvent.plugin.getMessageConfig().getString("event-started")));
 						setStarted(true);
 					} else {
-						end();
 						Bukkit.broadcastMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-not-enough-players")));
-						setStarted(false);
+						end();
 					}
+					this.cancel();
 				}
 				time--;
 			}
 		}.runTaskTimer(EncireEvent.plugin,0,20); // run every second
 	}
-	
+
 	public boolean isPlayer(UUID uuid) {
 		if(players.contains(uuid)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isSpectator(UUID uuid) {
 		if(spectators.contains(uuid)) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public void playerToSpecator(UUID id) {
 		players.remove(id);
 		spectators.add(id);
 		Bukkit.getPlayer(id).teleport(this.getSpecLocation());
 	}
-	
-	public void end() {
-		if(started) {
-			EncireEvent plugin = EncireEvent.plugin;
-			this.setStarted(false);
-			this.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-end-notify-all"))); // TODO winners (team)
-			for(UUID id : players) {
-				for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
-				}
-			}
 
-			for(UUID id : spectators) {
-				for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
-				}
+	public void end() {
+		EncireEvent plugin = EncireEvent.plugin;
+		this.setStarted(false);
+		this.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-end-notify-all"))); // TODO winners (team)
+		for(UUID id : players) {
+			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
 			}
-			plugin.setEvent(null);
-		}		
+		}
+
+		for(UUID id : spectators) {
+			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
+			}
+		}
+		plugin.setEvent(null);
+
 	}
 
 	public abstract void start();
