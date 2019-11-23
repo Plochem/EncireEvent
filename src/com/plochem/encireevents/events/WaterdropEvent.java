@@ -73,7 +73,7 @@ public class WaterdropEvent extends Event{
 	
 	private void setRandomBlocks() {
 		List<Location> copy = new ArrayList<>(validWaterLocations);
-		for(Location loc : copy) {
+		for(Location loc : copy) { // clear filled water blocks
 			loc.getBlock().setType(Material.WATER);
 		}
 		Collections.shuffle(copy);
