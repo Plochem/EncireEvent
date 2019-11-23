@@ -12,7 +12,7 @@ help-message:
 - "/events gamecorner [event] - sets a corner for specified event"
 
 no-event-message: "&cThere is no event right now."
-inventory-not-empty-message: "&cYour inventory has to be full before joining the event!"
+inventory-not-empty-message: "&cYour inventory has to be empty before joining the event!"
 player-not-in-event-message: "&cYou're not in an event"
 joined-event-message: "&aYou joined the event!"
 event-already-started-message: "&cThis event already started. You can spectate the game instead"
