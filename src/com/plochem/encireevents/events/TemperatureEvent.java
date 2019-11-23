@@ -60,7 +60,9 @@ public class TemperatureEvent extends Event{
 
 	@Override
 	public boolean lastStanding() {
-		// TODO Auto-generated method stub
+		if(this.getPlayers().size() == 1) {
+			return true;
+		}
 		return false;
 	}
 	private void setRandomBlocks() {
