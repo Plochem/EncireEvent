@@ -1,9 +1,16 @@
 # %event% = the name of the ongoing event. Would throw errors if no event is ongoing. The event is considered ongoing when someone successfully hosts the event
 help-message:
 - "&5help Menu"
-- "&fDo this yourself &5lmao"
-- "add more lines if you want"
-- "yeetus deletus your fetus"
+- "/events - main command"
+- "/events host - host menu"
+- "/events reload - reload all .yml files"
+- "/events join - join event"
+- "/events leave - leave event"
+- "/events spectate - spectate event"
+- "/events spectatorspawn [event name]- sets the spectator spawn for specified event"
+- "/events gamespawn [event] - sets player's start location for specified event"
+- "/events gamecorner [event] - sets a corner for specified event"
+
 no-event-message: "&cThere is no event right now."
 inventory-not-empty-message: "&cYour inventory has to be full before joining the event!"
 player-not-in-event-message: "&cYou're not in an event"
