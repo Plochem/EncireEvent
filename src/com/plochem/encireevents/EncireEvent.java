@@ -15,6 +15,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -107,11 +108,12 @@ public class EncireEvent extends JavaPlugin{
 						if(event == null) {
 							p.sendMessage(msgFormat(messages.getString("no-event-message")));
 						} else {
+							System.out.println(plugin.getEvent() == null);
 							if(event.hasStarted()) {
 								p.sendMessage(msgFormat(messages.getString("event-already-started-message")));
 							} else if(event.isFull()) {
 								p.sendMessage(msgFormat(messages.getString("event-full-message")));
-							} else if(p.getInventory().getContents().length != 0){
+							} else if(!invEmpty(p)){
 								p.sendMessage(msgFormat(messages.getString("inventory-not-empty-message")));						
 							}  else {
 								p.sendMessage(msgFormat(messages.getString("joined-event-message")));
@@ -119,7 +121,7 @@ public class EncireEvent extends JavaPlugin{
 							}
 						}
 					} else if(args[0].equalsIgnoreCase("leave")) {
-						if(event == null || !event.getPlayers().contains(p.getUniqueId()) || !event.getSpectators().contains(p.getUniqueId())) {
+						if(event == null || (!event.getPlayers().contains(p.getUniqueId()) && !event.getSpectators().contains(p.getUniqueId()))) {
 							p.sendMessage(msgFormat(messages.getString("player-not-in-event-message")));
 						} else {
 							p.sendMessage(msgFormat(messages.getString("left-event-message")));
@@ -134,13 +136,13 @@ public class EncireEvent extends JavaPlugin{
 						}
 					} else if(args[0].equalsIgnoreCase("spectatorspawn")) {
 						if(p.hasPermission("events.spectatorspawn")) {
-							if(args.length == 2) {
-								if(eventConfig.getConfigurationSection("spectator-spawn").contains(args[1].toLowerCase())) {
+							if(args.length == 2) {								
+								if(eventConfig.getConfigurationSection("spectator-spawn").getKeys(false).contains(args[1].toLowerCase())) {
 									eventConfig.getConfigurationSection("spectator-spawn").set(args[1].toLowerCase(), p.getLocation());
 									save(eventFile, eventConfig);
-									p.sendMessage(messages.getString("set-new-spectator-spawn")); 
+									p.sendMessage(msgFormat(messages.getString("set-new-spectator-spawn"))); 
 								} else {
-									p.sendMessage(messages.getString("no-such-event"));
+									p.sendMessage(msgFormat(messages.getString("no-such-event")));
 									p.sendMessage(msgFormat("&ePossible choices: ffa, temperature, islandclash, sumo, or waterdrop"));
 								}
 							}
@@ -234,6 +236,15 @@ public class EncireEvent extends JavaPlugin{
 		for(String s : messages.getStringList("help-message")) {
 			p.sendMessage(msgFormat(s));
 		}
+	}
+	
+	private boolean invEmpty(Player p) {
+		for(ItemStack item : p.getInventory().getContents()) {
+			if(item != null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public Event getEvent() {
