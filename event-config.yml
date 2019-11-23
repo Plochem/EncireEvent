@@ -1,3 +1,18 @@
+# TIME CONFIG
+# This is the number of seconds before it attempts to start the event.
+# If event can't be started, the event will end
+# ___________________
+# BROADCAST-TIMES CONFIG
+#These are the list of times that would be broadcasted till event starts. For example, "60 seconds till the event starts!", "30 seconds till the event starts"
+#Must follow this format exactly. NO SPACES! USE DOUBLE QUOTES
+# ____________________
+#EVENT-END-COMMANDS CONFIG
+# list of commands that will be executed when an event ends
+# NO SLASH
+# %player% = a player in the event. Ex: "spawn %player%"" will send all players from the event to spawn
+
+
+
 player-limit-ffa: 50
 player-limit-waterdrop: 50
 player-limit-sumo1v1: 50
@@ -5,38 +20,31 @@ player-limit-sumo2v2: 50
 player-limit-sumo4v4: 80
 player-limit-islandclash: 24
 player-limit-temperature: 50
-# This is the number of seconds before it attempts to start the event.
-# If event can't be started, the event will end
+
 time: 60
-#These are the list of times that would be broadcasted till event starts. For example, "60 seconds till the event starts!", "30 seconds till the event starts"
-#Must follow this format exactly. NO SPACES! USE DOUBLE QUOTES
+
 broadcast-times: "60,30,15,10,5,4,3,2,1"
-# list of commands that will be executed when an event ends
-# NO SLASH
-# %player% = a player in the event. Ex: "spawn %player%"" will send all players from the event to spawn
+
 event-end-commands:
 - "spawn %player%"
 - "anothercommand %player%"
 
-# the location where all players will spawn when the event starts
-ffa-startLoc: null
-islandclash-startLoc: null
-waterdrop-starLoc: null
-temperature-startLoc: null
-sumo-startLoc: null
+ffa-startLoc: "null"
+islandclash-startLoc: "null"
+waterdrop-starLoc: "null"
+temperature-startLoc: "null"
+sumo-startLoc: "null"
 
-# Corners to determine the water to use to manipulate
-waterdrop-corner1: null
-waterdrop-corner2: null
+waterdrop-corner1: "null"
+waterdrop-corner2: "null"
 
 
-# Corners to determine the wool to use to manipulate
-temperature-corner1: null
-temperature-corner2: null
+temperature-corner1: "null"
+temperature-corner2: "null"
 
-spectator-spawn:
-  ffa: null
-  waterdrop: null
-  sumo: null
-  islandclash: null
-  temperature: null
+spectator-spawn: 
+  ffa: "null"
+  waterdrop: "null"
+  sumo: "null"
+  islandclash: "null"
+  temperature: "null"
