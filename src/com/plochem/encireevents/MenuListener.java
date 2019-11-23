@@ -59,7 +59,7 @@ public class MenuListener implements Listener{
 						return;
 					}
 					p.sendMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-created")));
-					Bukkit.broadcastMessage(eventPlugin.getMessageConfig().getString("event-notify-all"));
+					Bukkit.broadcastMessage(eventPlugin.msgFormat(eventPlugin.getMessageConfig().getString("event-notify-all")));
 					eventPlugin.getEvent().startCountdown();
 				}
 
