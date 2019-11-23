@@ -39,19 +39,22 @@ public class MenuListener implements Listener{
 				} else {
 					ConfigurationSection specLocs = eventPlugin.getEventConfig().getConfigurationSection("spectator-spawn");
 					if(items.getItemStack("ffa.item").equals(i)) {
-						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa"), (Location)eventPlugin.getEventConfig().get("ffa-startLoc")));
+						eventPlugin.setEvent(new FFAEvent("FFA", eventPlugin.getEventConfig().getInt("player-limit-ffa"), (Location)specLocs.get("ffa"), 
+											(Location)eventPlugin.getEventConfig().get("ffa-startLoc")));
 					} else if(items.getItemStack("waterdrop.item").equals(i)) {
 						eventPlugin.setEvent(new WaterdropEvent("Waterdrop", eventPlugin.getEventConfig().getInt("player-limit-waterdrop"), 
 											(Location)specLocs.get("waterdrop"), (Location)eventPlugin.getEventConfig().get("waterdrop-startLoc"),
 											(Location)eventPlugin.getEventConfig().get("waterdrop-corner1"), (Location)eventPlugin.getEventConfig().get("waterdrop-corner2")));
 					} else if(items.getItemStack("sumo.item").equals(i)) {
-
+						p.sendMessage(eventPlugin.msgFormat("&cComing soon!"));
+						return;
 					} else if(items.getItemStack("temperature.item").equals(i)) {
 						eventPlugin.setEvent(new TemperatureEvent("Temperature", eventPlugin.getEventConfig().getInt("player-limit-temperature"), 
-								(Location)specLocs.get("temperature"), (Location)eventPlugin.getEventConfig().get("temperature-startLoc"),
-								(Location)eventPlugin.getEventConfig().get("temperature-corner1"), (Location)eventPlugin.getEventConfig().get("temperature-corner2")));
+											(Location)specLocs.get("temperature"), (Location)eventPlugin.getEventConfig().get("temperature-startLoc"),
+											(Location)eventPlugin.getEventConfig().get("temperature-corner1"), (Location)eventPlugin.getEventConfig().get("temperature-corner2")));
 					} else if(items.getItemStack("islandclash.item").equals(i)) {
-						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), (Location)specLocs.get("islandclash"), (List<Location>)eventPlugin.getEventConfig().getList("islandclash-startLoc")));
+						eventPlugin.setEvent(new IslandClashEvent("IslandClash", eventPlugin.getEventConfig().getInt("player-limit-islandclash"), 
+											(Location)specLocs.get("islandclash"), (List<Location>)eventPlugin.getEventConfig().getList("islandclash-startLoc")));
 					} else {
 						return;
 					}
