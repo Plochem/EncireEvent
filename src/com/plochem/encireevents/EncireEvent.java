@@ -108,7 +108,6 @@ public class EncireEvent extends JavaPlugin{
 						if(event == null) {
 							p.sendMessage(msgFormat(messages.getString("no-event-message")));
 						} else {
-							System.out.println(plugin.getEvent() == null);
 							if(event.hasStarted()) {
 								p.sendMessage(msgFormat(messages.getString("event-already-started-message")));
 							} else if(event.isFull()) {
