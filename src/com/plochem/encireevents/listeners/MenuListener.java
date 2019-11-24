@@ -1,4 +1,4 @@
-package com.plochem.encireevents;
+package com.plochem.encireevents.listeners;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.plochem.encireevents.EncireEvent;
 import com.plochem.encireevents.events.FFAEvent;
 import com.plochem.encireevents.events.IslandClashEvent;
 import com.plochem.encireevents.events.TemperatureEvent;
@@ -31,7 +32,7 @@ public class MenuListener implements Listener{
 		if(e.getInventory().getName().equalsIgnoreCase(eventPlugin.getMenuConfig().getString("menu-name"))) {
 			e.setCancelled(true);
 			Player p = (Player)e.getWhoClicked();
-			if(e.getClickedInventory().getName().equalsIgnoreCase(eventPlugin.getMenuConfig().getString("menu-name"))) {
+			if(e.getClickedInventory() != null && e.getClickedInventory().getName().equalsIgnoreCase(eventPlugin.getMenuConfig().getString("menu-name"))) {
 				ConfigurationSection items = eventPlugin.getMenuConfig().getConfigurationSection("menu-items");
 				ItemStack i = e.getCurrentItem();
 				if(eventPlugin.getEvent() != null) {
