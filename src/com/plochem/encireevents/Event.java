@@ -3,6 +3,7 @@ package com.plochem.encireevents;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -132,19 +133,25 @@ public abstract class Event {
 	public void playerToSpecator(UUID id) {
 		players.remove(id);
 		spectators.add(id);
-		Bukkit.getPlayer(id).teleport(this.getSpecLocation());
+		Player player = Bukkit.getPlayer(id);
+		player.getInventory().clear();
+		player.getInventory().setHelmet(null);
+		player.getInventory().setChestplate(null);
+		player.getInventory().setLeggings(null);
+		player.getInventory().setBoots(null);
 	}
 
 	public void end() {
 		EncireEvent plugin = EncireEvent.plugin;
 		this.setStarted(false);
 		this.sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("event-end-notify-all"))); // TODO winners (team)
-		for(UUID id : players) {
-			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
-			}
+		Iterator<UUID> playersIterator = players.iterator();
+		while (playersIterator.hasNext()) {
+			UUID id = playersIterator.next();
+			spectators.add(id);
+			Bukkit.getPlayer(id).getInventory().clear();
+			playersIterator.remove();
 		}
-
 		for(UUID id : spectators) {
 			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
