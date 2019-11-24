@@ -24,6 +24,7 @@ public class WaterdropEvent extends Event{
 	private Location corner2;
 	private List<Location> validWaterLocations = new ArrayList<>();
 	private double[] percents = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
+	private int[] broadcastTimes = {60, 30, 10, 5, 4, 3, 2, 1};
 	
 	public WaterdropEvent(String name, int maxPlayers, Location specLoc, Location startLoc, Location corner1, Location corner2) {
 		super(name, maxPlayers, specLoc);
@@ -46,24 +47,30 @@ public class WaterdropEvent extends Event{
 			@Override
 			public void run() {
 				if(!hasStarted()) this.cancel(); // cancels runnable when end() is called in another listener
+				for(int t : broadcastTimes) {
+					if(time == t) {
+						sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("waterdrop-countdown").replaceAll("%time%", String.valueOf(time))));
+					}
+				}
 				if(time == 60) {
 					sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("new-waterdrop-round")));
 					setRandomBlocks();
-				} else if(time == 0) {
+				} else if(time == 1) {
 					for(UUID id : getPlayers()) {
 						if(passed.contains(id)) {
 							Bukkit.getPlayer(id).teleport(startLoc);
 						} else { // stayed at spawn
 							playerToSpecator(id);
+							Bukkit.getPlayer(id).teleport(getSpecLocation());
 							sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", Bukkit.getPlayer(id).getName())));
 						}
 					}
-					if(lastStanding()) {
+					if(hasStarted() && lastStanding()) {
 						this.cancel();
 						end();
 					}
 					passed.clear();
-					time = 60;
+					time = 61;
 				}
 				time--;
 				
@@ -81,7 +88,7 @@ public class WaterdropEvent extends Event{
 		double percent = percents[ran.nextInt(percents.length)];
 		int lim = (int) (copy.size() * percent);
 		for(int i = 0; i <= lim; i++) {
-			copy.get(i).getBlock().setType(Material.WATER);
+			copy.get(i).getBlock().setType(Material.BRICK);
 		}
 		
 	}
