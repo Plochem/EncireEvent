@@ -1,14 +1,11 @@
 # TIME CONFIG
-# This is the number of seconds before it attempts to start the event.
-# If event can't be started, the event will end
+# This is the number of seconds before it attempts to start the event. If event can't be started, the event will end.
 # ___________________
 # BROADCAST-TIMES CONFIG
-#These are the list of times that would be broadcasted till event starts. For example, "60 seconds till the event starts!", "30 seconds till the event starts"
-#Must follow this format exactly. NO SPACES! USE DOUBLE QUOTES
+#These are the list of times that would be broadcasted till event starts. For example, "60 seconds till the event starts!", "30 seconds till the event starts". Must follow this format exactly. NO SPACES! USE DOUBLE QUOTES
 # ____________________
 #EVENT-END-COMMANDS CONFIG
-# list of commands that will be executed when an event ends
-# NO SLASH
+# list of commands that will be executed when an event ends. NO SLASH
 # %player% = a player in the event. Ex: "spawn %player%"" will send all players from the event to spawn
 
 
@@ -31,7 +28,7 @@ event-end-commands:
 
 ffa-startLoc: "null"
 islandclash-startLoc: "null"
-waterdrop-starLoc: "null"
+waterdrop-startLoc: "null"
 temperature-startLoc: "null"
 sumo-startLoc: "null"
 
