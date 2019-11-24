@@ -40,3 +40,4 @@ player-eliminated: "&e%player% has been eliminated from the event!" #message is 
 
 waterdrop-sucess: "&cYou successfully made the water drop!"
 new-waterdrop-round: "&aA new waterdrop round has started! Jump into the water"
+waterdrop-countdown: "&c%time% seconds until round ends!"
