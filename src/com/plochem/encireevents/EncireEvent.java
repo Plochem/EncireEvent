@@ -20,6 +20,9 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.plochem.encireevents.listeners.BlockEvent;
+import com.plochem.encireevents.listeners.MenuListener;
+import com.plochem.encireevents.listeners.PlayerDamageEvent;
 import com.plochem.encireevents.listeners.PlayerMovementEvent;
 
 public class EncireEvent extends JavaPlugin{	
@@ -52,6 +55,8 @@ public class EncireEvent extends JavaPlugin{
 
 		pm.registerEvents(new MenuListener(this), this);
 		pm.registerEvents(new PlayerMovementEvent(), this);
+		pm.registerEvents(new PlayerDamageEvent(), this);
+		pm.registerEvents(new BlockEvent(), this);
 	}
 
 	public void createFiles() {
@@ -152,7 +157,7 @@ public class EncireEvent extends JavaPlugin{
 						if(p.hasPermission("events.gamespawn")) {
 							if(args.length >= 2) {
 								if(args[1].equalsIgnoreCase("ffa") || args[1].equalsIgnoreCase("waterdrop") || args[1].equalsIgnoreCase("temperature")) {
-									eventConfig.set("ffa-startLoc", p.getLocation());
+									eventConfig.set(args[1].toLowerCase() + "-startLoc", p.getLocation());
 									save(eventFile, eventConfig);
 									p.sendMessage(msgFormat("&cYou set the location of the game spawn for the " + args[1] + " event to your current position."));	
 								} else if(args[1].equalsIgnoreCase("islandclash") || args[1].equalsIgnoreCase("sumo")) { //TODO
@@ -275,7 +280,9 @@ public class EncireEvent extends JavaPlugin{
 
 	public String msgFormat(String s) {
 		String colored = ChatColor.translateAlternateColorCodes('&', s);
-		if(event != null) colored.replaceAll("%event%", event.getName());
+		if(event != null) {
+			colored = colored.replaceAll("%event%", event.getName());	
+		}
 		return colored;
 	}
 
