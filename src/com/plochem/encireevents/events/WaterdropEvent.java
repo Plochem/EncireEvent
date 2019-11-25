@@ -2,6 +2,7 @@ package com.plochem.encireevents.events;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -46,31 +47,30 @@ public class WaterdropEvent extends Event{
 			int time = 60;
 			@Override
 			public void run() {
-				if(!hasStarted()) this.cancel(); // cancels runnable when end() is called in another listener
-				for(int t : broadcastTimes) {
-					if(time == t) {
-						sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("waterdrop-countdown").replaceAll("%time%", String.valueOf(time))));
-					}
-				}
+				if(!hasStarted() || plugin.getEvent() == null) this.cancel(); // cancels runnable when event is over
 				if(time == 60) {
 					sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("new-waterdrop-round")));
 					setRandomBlocks();
 				} else if(time == 1) {
-					for(UUID id : getPlayers()) {
+					Iterator<UUID> playersIterator = getPlayers().iterator();
+					while (playersIterator.hasNext()) {
+						UUID id = playersIterator.next();
 						if(passed.contains(id)) {
 							Bukkit.getPlayer(id).teleport(startLoc);
 						} else { // stayed at spawn
-							playerToSpecator(id);
+							getSpectators().add(id);
 							Bukkit.getPlayer(id).teleport(getSpecLocation());
 							sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("player-eliminated").replaceAll("%player%", Bukkit.getPlayer(id).getName())));
+							playersIterator.remove();
 						}
-					}
-					if(hasStarted() && lastStanding()) {
-						this.cancel();
-						end();
 					}
 					passed.clear();
 					time = 61;
+				}
+				for(int t : broadcastTimes) {
+					if(time == t) {
+						sendMessage(plugin.msgFormat(plugin.getMessageConfig().getString("waterdrop-countdown").replaceAll("%time%", String.valueOf(time))));
+					}
 				}
 				time--;
 				
@@ -80,7 +80,7 @@ public class WaterdropEvent extends Event{
 	
 	private void setRandomBlocks() {
 		List<Location> copy = new ArrayList<>(validWaterLocations);
-		for(Location loc : copy) { // clear filled water blocks
+		for(Location loc : copy) {
 			loc.getBlock().setType(Material.WATER);
 		}
 		Collections.shuffle(copy);
@@ -128,6 +128,10 @@ public class WaterdropEvent extends Event{
 	
 	public List<UUID> getPassed(){
 		return passed;
+	}
+	
+	public List<Location> getValidWaterLocations(){
+		return validWaterLocations;
 	}
 
 }
