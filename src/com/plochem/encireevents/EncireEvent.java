@@ -22,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.plochem.encireevents.listeners.BlockEvent;
 import com.plochem.encireevents.listeners.MenuListener;
+import com.plochem.encireevents.listeners.PlayerConnectEvent;
 import com.plochem.encireevents.listeners.PlayerDamageEvent;
 import com.plochem.encireevents.listeners.PlayerMovementEvent;
 
@@ -57,6 +58,7 @@ public class EncireEvent extends JavaPlugin{
 		pm.registerEvents(new PlayerMovementEvent(), this);
 		pm.registerEvents(new PlayerDamageEvent(), this);
 		pm.registerEvents(new BlockEvent(), this);
+		pm.registerEvents(new PlayerConnectEvent(), this);
 	}
 
 	public void createFiles() {
