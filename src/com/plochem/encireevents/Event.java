@@ -8,8 +8,12 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import com.plochem.encireevents.events.TemperatureEvent;
+import com.plochem.encireevents.events.WaterdropEvent;
 
 public abstract class Event {
 	private List<UUID> players = new ArrayList<>();	
@@ -85,8 +89,11 @@ public abstract class Event {
 	}
 
 	public void removePlayer(Player p) {
+		p.setMaxHealth(20.0);
+		p.setHealth(20.0);
 		players.remove(p.getUniqueId());
 		spectators.remove(p.getUniqueId());
+		if(this.lastStanding()) end();
 	}
 
 	public void startCountdown() {
@@ -155,6 +162,18 @@ public abstract class Event {
 		for(UUID id : spectators) {
 			for(String cmd : plugin.getEventConfig().getStringList("event-end-commands")) {
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replaceAll("%player%", Bukkit.getPlayer(id).getName()));
+			}
+			Bukkit.getPlayer(id).setMaxHealth(20.0);
+			Bukkit.getPlayer(id).setHealth(20.0);
+		}
+		
+		if(this instanceof WaterdropEvent) {
+			for(Location loc : ((WaterdropEvent)this).getValidWaterLocations()) {
+				loc.getBlock().setType(Material.WATER);
+			}
+		} else if(this instanceof TemperatureEvent) {
+			for(Location loc : ((TemperatureEvent)this).getValidWoolLocations()) {
+				loc.getBlock().setType(Material.WOOL);
 			}
 		}
 		plugin.setEvent(null);
