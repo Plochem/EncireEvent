@@ -3,12 +3,14 @@ package com.plochem.encireevents.events;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 import org.bukkit.material.Wool;
@@ -46,7 +48,7 @@ public class TemperatureEvent extends Event{
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if(!hasStarted()) {
+				if(!hasStarted() || EncireEvent.plugin.getEvent() == null) {
 					this.cancel(); // cancels runnable when end() is called in another listener
 					for(Location loc : validWoolLocations) {
 						loc.getBlock().setType(Material.WOOL); // regen wool blocks
@@ -55,7 +57,7 @@ public class TemperatureEvent extends Event{
 					setRandomBlocks();
 				}
 			}
-		}.runTaskTimer(EncireEvent.plugin,0,40); // run every 2 seconds
+		}.runTaskTimer(EncireEvent.plugin,0,100); // run every 5 seconds
 	}
 
 	@Override
@@ -65,26 +67,32 @@ public class TemperatureEvent extends Event{
 		}
 		return false;
 	}
+	
 	private void setRandomBlocks() {
 		if(copyValid.size() > 0) {
-			int lim = (int) (copyValid.size() * 0.05) + 1;
+			Random ran = new Random();
+			int lim = (int) (ran.nextInt(copyValid.size()) * 0.40) + 1;
 			changedWoolLocations.addAll(copyValid.subList(0, lim));
 			copyValid.removeAll(copyValid.subList(0, lim));
 		}
-
 		for(int i = 0; i < changedWoolLocations.size(); i++) {
-			MaterialData md = changedWoolLocations.get(i).getBlock().getState().getData();
+			BlockState state = changedWoolLocations.get(i).getBlock().getState();
+			MaterialData md = state.getData();
 			if(md instanceof Wool) {
-				DyeColor dye = ((Wool)md).getColor();
+				Wool wool = (Wool)md;
+				DyeColor dye = wool.getColor();
 				if(dye == DyeColor.WHITE) {
-					((Wool) md).setColor(DyeColor.YELLOW);
+					wool.setColor(DyeColor.YELLOW);
 				} else if(dye == DyeColor.YELLOW) {
-					((Wool) md).setColor(DyeColor.ORANGE);
+					wool.setColor(DyeColor.ORANGE);
 				} else if(dye == DyeColor.ORANGE) {
-					((Wool) md).setColor(DyeColor.RED);
+					wool.setColor(DyeColor.RED);
 				} else if(dye == DyeColor.RED) {
 					changedWoolLocations.get(i).getBlock().setType(Material.AIR); // remove block
+					continue;
 				}
+				state.setData(wool);
+				state.update(true, true);
 			}
 		}
 	}
@@ -109,5 +117,8 @@ public class TemperatureEvent extends Event{
 			}
 		}
 	}
-
+	
+	public List<Location> getValidWoolLocations(){
+		return validWoolLocations;
+	}
 }
