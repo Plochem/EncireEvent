@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.plochem.encireevents.events.IslandClashEvent;
 import com.plochem.encireevents.events.TemperatureEvent;
 import com.plochem.encireevents.events.WaterdropEvent;
 
@@ -175,6 +176,8 @@ public abstract class Event {
 			for(Location loc : ((TemperatureEvent)this).getValidWoolLocations()) {
 				loc.getBlock().setType(Material.WOOL);
 			}
+		} else if(this instanceof IslandClashEvent) {
+			((IslandClashEvent)this).rollback();
 		}
 		plugin.setEvent(null);
 
