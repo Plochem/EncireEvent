@@ -93,7 +93,7 @@ public abstract class Event {
 		p.setHealth(20.0);
 		players.remove(p.getUniqueId());
 		spectators.remove(p.getUniqueId());
-		if(this.lastStanding()) end();
+		if(this.lastStanding() && started) end();
 	}
 
 	public void startCountdown() {
