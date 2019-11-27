@@ -122,7 +122,7 @@ public class EncireEvent extends JavaPlugin{
 							} else if(!invEmpty(p)){
 								p.sendMessage(msgFormat(messages.getString("inventory-not-empty-message")));						
 							}  else {
-								p.sendMessage(msgFormat(messages.getString("joined-event-message")));
+								Bukkit.broadcastMessage(msgFormat(messages.getString("joined-event-message")));
 								event.addPlayer(p);
 							}
 						}
