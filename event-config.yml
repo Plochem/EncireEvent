@@ -8,8 +8,6 @@
 # list of commands that will be executed when an event ends. NO SLASH
 # %player% = a player in the event. Ex: "spawn %player%"" will send all players from the event to spawn
 
-
-
 player-limit-ffa: 50
 player-limit-waterdrop: 50
 player-limit-sumo1v1: 50
